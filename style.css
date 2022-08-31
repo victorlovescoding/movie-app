@@ -1,0 +1,148 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #22274D;
+
+}
+header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #363D6B;
+}
+#searchEl{
+    display: block;
+    margin: .8rem;
+    width: 50%;
+    height: 2.7rem;
+    border-radius: 3rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+#searchBtn{
+    cursor: pointer;
+    display: block;
+    color: #eee;
+    font-size: 2rem;
+}
+#movieContainer{
+    width: 70%;
+    margin: 2rem auto;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden
+}
+#moviePic{
+    display: block;
+    width: 100%;
+    object-fit: cover;
+}
+#vote_average{
+    display: block;
+}
+
+#movieTitle,
+#vote_average{
+    color: #eee;
+    text-align: center;
+}
+
+#overviewContainer{
+    background-color: #eee;
+    width: 100%;
+    max-height: 100%;
+    position: absolute;
+    overflow: auto;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    transform: translateY(105%);
+    transition: transform 0.3s ease-in;   
+}
+#movieContainer:hover #overviewContainer{
+    transform: translateY(0%);
+} 
+#main{
+    position: relative;
+    
+}
+#overviewTitle{
+    margin: 2rem 1.8rem;
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+#overviewContent{
+    font-size: 1.25rem;
+    margin:1rem .8rem;
+    line-height: 1.5;
+    text-indent: 40px;
+    overflow: auto;
+
+}
+
+#movieBottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #363D6B;
+}
+#movieTitle{
+    margin: 1.5rem;
+}
+#vote_average{
+    margin: 1.5rem;
+    font-weight: bold;
+    background-color: #282551;
+    padding: 5px;
+}
+
+
+/* RWD */
+@media (min-width: 768px) {
+    #movieContainer{
+        width: 40%;
+        
+    }
+    header{
+        justify-content: flex-end;
+    }
+    #searchEl{
+        width: 20rem;
+    }
+    #searchBtn{
+        margin: 0 2rem;
+    }
+    #main{
+        display: flex;
+        flex-wrap: wrap;
+
+    }
+    
+}
+@media (min-width: 1200px) {
+
+    #movieContainer{
+        width: 20%;
+        margin: 2.5rem;
+    }
+    #main{
+        margin: auto;
+        justify-content: center;
+    }
+    #searchBtn{
+        font-size: 2.5rem;
+        margin: 2rem 2rem 2rem 1rem;
+    }
+    #searchEl{
+        height: 4rem;
+    }
+}
