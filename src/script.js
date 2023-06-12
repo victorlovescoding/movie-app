@@ -1,72 +1,61 @@
-const moviePic = document.getElementById('moviePic');
-const searchEl = document.getElementById('searchEl');
-const searchBtn = document.getElementById('searchBtn');
-const main = document.getElementById('main');
+import { createApp, ref, onMounted } from "vue";
 
-main
-let imgPath = "https://image.tmdb.org/t/p/w1280"
-
-
-function popularMovie(){
-    fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1`)
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(data) {
-      
-      data.results.forEach(movie => {
-         const div = document.createElement('div');
-         div.id = "movieContainer"
-         div.innerHTML = `
-         
-            <img id="moviePic" src="${imgPath + movie.poster_path}">
-            <div id="movieBottom">
-                <h2 id="movieTitle">${movie.title}</h2>
-                <span id="vote_average">${movie.vote_average}</span>
-            </div>
-            <div id="overviewContainer">
-                <h3 id="overviewTitle">Overview :</h3>
-                <p id="overviewContent">${movie.overview}</p>
-            </div>
-         `
-        main.appendChild(div);
-        searchEl.value = "";
-         //console.log(movie.overview); 
-        //  console.log(movie.poster_path);
-      });
+createApp({
+  setup() {
+    let imgPath = "https://image.tmdb.org/t/p/w1280";
+    const movies = ref([]);
+    const inputText = ref("");
+    function popularMovie() {
+      fetch(
+        `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1`
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          data.results.forEach((movie) => {
+            movies.value.push({
+              movieTitle: movie.original_title,
+              movieVoteAverage: movie.vote_average,
+              movieOverview: movie.overview,
+              movieImage: imgPath + movie.poster_path,
+            });
+          });
+        });
+    }
+    function getMovie() {
+      movies.value = [];
+      //把搜尋欄的字刪除，會再次跳出熱門電影
+      if (!movies.value.length && !inputText.value.length) {
+        popularMovie();
+      } else {
+        fetch(
+          `https://api.themoviedb.org/3/search/movie?&api_key=04c35731a5ee918f014970082a0088b1&query=${inputText.value}`
+        )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            data.results.forEach((movie) => {
+              movies.value.push({
+                movieTitle: movie.original_title,
+                movieVoteAverage: movie.vote_average.toFixed(1),
+                movieOverview: movie.overview,
+                movieImage: imgPath + movie.poster_path,
+              });
+            });
+          });
+      }
+    }
+    onMounted(() => {
+      popularMovie();
     });
-}
 
-function getMovie(){
-    main.innerHTML = "";
-    fetch(`https://api.themoviedb.org/3/search/movie?&api_key=04c35731a5ee918f014970082a0088b1&query=${searchEl.value}`)
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(data) {
-      
-      data.results.forEach(movie => {
-         const div = document.createElement('div');
-         div.id = "movieContainer"
-
-         div.innerHTML = `
-         
-            <img id="moviePic" src="${imgPath + movie.poster_path}" alt="${movie.title}img">
-            <div id="movieBottom">
-                <h2 id="movieTitle">${movie.title}</h2>
-                <span id="vote_average">${movie.vote_average}</span>
-            </div>
-            <div id="overviewContainer">
-                <h3 id="overviewTitle">Overview :</h3>
-                <p id="overviewContent">${movie.overview}</p>
-            </div>
-         `
-        main.appendChild(div);
-        searchEl.value = "";
-         //console.log(movie.overview); 
-        //  console.log(movie.poster_path);
-      });
-    });
-}
-window.addEventListener('load',popularMovie)
-searchBtn.addEventListener('click', getMovie)
+    return {
+      popularMovie,
+      getMovie,
+      movies,
+      inputText,
+    };
+  },
+}).mount("#app");

@@ -2,58 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    @apply m-0 p-0 font-serif flex justify-center items-center flex-col bg-[#22274D]
+body {
+  @apply m-0 p-0 font-serif flex-col bg-[#22274D];
 }
-header{
-    @apply w-full flex justify-end items-center bg-[#363D6B]
-    md:justify-end 
+body::-webkit-scrollbar{
+    display: none;
 }
-#searchEl{
-    @apply m-[.8rem] w-6/12	h-[2.7rem] rounded-[3rem] p-4 text-2xl	
+header {
+  @apply w-full flex justify-end items-center bg-[#363D6B]
+    md:justify-end;
+}
+#searchEl {
+  @apply m-[.8rem] w-6/12	h-[2.7rem] rounded-[3rem] p-4 text-2xl	
     md:w-80 
-    lg:h-16	
+    lg:h-16;
 }
-#searchBtn{
-    @apply cursor-pointer text-[#eee] text-[2rem]
-    md:my-0 mx-6
-    lg:text-[2.5rem] lg:my-8 lg:mr-8 lg:ml-4
-}
-#movieContainer{
-    @apply w-[70%] my-8	mx-auto shadow relative overflow-hidden
+#movieContainer {
+  @apply w-[70%] my-8	mx-auto shadow relative overflow-hidden
     md:w-2/5	
-    lg:m-[2.5rem] lg:w-1/5
+    lg:m-[2.5rem] lg:w-1/5;
 }
-#moviePic{
-    @apply w-full object-cover
+#moviePic {
+  @apply w-full object-cover;
 }
 #movieTitle,
-#vote_average{
-    @apply text-[#eee] text-center
+#vote_average {
+  @apply text-[#eee] text-center;
 }
-#overviewContainer{
-    @apply bg-[#eee] w-full max-h-full absolute overflow-auto left-0 bottom-0 right-0 translate-y-[105%] transition-transform duration-300 ease-in
+#overviewContainer {
+  @apply bg-[#eee] w-full max-h-full absolute overflow-auto left-0 bottom-0 right-0 translate-y-[105%] transition-transform duration-300 ease-in;
 }
-#movieContainer:hover #overviewContainer{
-    @apply translate-y-[0%]
+#movieContainer:hover #overviewContainer {
+  @apply translate-y-[0%];
 }
-#main{
-    @apply relative
+main {
+  @apply relative
     md:flex flex-wrap
-    lg:m-auto lg:justify-center
+    lg:m-auto lg:justify-center;
 }
-#overviewTitle{
-    @apply my-8 mx-[1.8rem] font-bold text-[1.8rem]
+#overviewTitle {
+  @apply my-8 mx-[1.8rem] font-bold text-[1.8rem];
 }
-#overviewContent{
-    @apply text-2xl	my-4 mx-[.8rem] leading-normal indent-10 overflow-auto
+#overviewContent {
+  @apply text-2xl	my-4 mx-[.8rem] leading-normal indent-10 overflow-auto;
 }
-#movieBottom{
-    @apply flex items-center justify-between bg-[#363D6B]
+#movieBottom {
+  @apply flex items-center justify-between bg-[#363D6B];
 }
-#movieTitle{
-    @apply m-6	
+#movieTitle {
+  @apply ml-6;
 }
-#vote_average{
-    @apply m-6 font-bold bg-[#282551] p-1.5
+#vote_average {
+  @apply m-6 font-bold bg-[#282551] p-1.5;
 }

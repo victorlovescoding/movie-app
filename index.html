@@ -1,18 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/dist/output.css" rel="stylesheet">
-  <title>Movie App</title>
-</head>
-<body>
-    <header>
-        <input id="searchEl" type="text" placeholder="Search">
-        <i id="searchBtn" class="fa-solid fa-magnifying-glass"></i>
-    </header>
-    <div id="main"></div>
-<script src="https://kit.fontawesome.com/3b9660ae0a.js" crossorigin="anonymous"></script>
-<script src="/src/script.js"></script>  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/dist/output.css" rel="stylesheet" />
+    <title>Movie App</title>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <input
+          @input="getMovie"
+          v-model="inputText"
+          id="searchEl"
+          type="text"
+          placeholder="Search"
+        />
+      </header>
+      <main>
+        <div
+          id="movieContainer"
+          v-for="movie in movies"
+          :key="movie.movieTitle"
+        >
+          <img
+            id="moviePic"
+            v-bind:alt="movie.movieTitle+' Picture'"
+            v-bind:src="movie.movieImage"
+          />
+          <div id="movieBottom">
+            <h2 id="movieTitle">{{movie.movieTitle}}</h2>
+            <span id="vote_average">{{movie.movieVoteAverage}}</span>
+          </div>
+          <div id="overviewContainer">
+            <h3 id="overviewTitle">Overview :</h3>
+            <p id="overviewContent">{{movie.movieOverview}}</p>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="/src/script.js"></script>
+  </body>
 </html>
